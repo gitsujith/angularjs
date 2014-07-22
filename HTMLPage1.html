@@ -1,0 +1,34 @@
+﻿
+<!DOCTYPE html>
+<html ng-app="demo">
+<head>
+    <title>Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script type="text/javascript">
+        var myApp = angular.module("demo", []);
+        myApp.controller("demoCtrl", function ($scope, $http) {
+            $http.get("todo.json").success(function (data) {
+                var jsonString = angular.toJson(data);
+                console.log(jsonString);
+                $scope.todos = angular.fromJson(jsonString);
+            });
+        });
+    </script>
+</head>
+<body ng-controller="demoCtrl">
+    <div class="panel">
+        <h1>To Do</h1>
+        <table class="table">
+            <tr><td>Action</td><td>Done</td></tr>
+            <tr ng-repeat="item in todos">
+                <td>{{item.action}}</td>
+                <td>{{item.done}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
